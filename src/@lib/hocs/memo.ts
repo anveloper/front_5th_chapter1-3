@@ -1,10 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ComponentType, createElement } from "react";
 import { shallowEquals } from "../equalities";
-import { ComponentType } from "react";
 
 export function memo<P extends object>(
   Component: ComponentType<P>,
   _equals = shallowEquals,
 ) {
-  return Component;
+  // 직접만든 훅으로 구현
+  let prevProps: P | null = null;
+  let prevResult: ReturnType<typeof createElement>;
+  return (props: P) => {
+    if (prevProps && _equals(prevProps, props)) {
+      return prevResult;
+    }
+    prevProps = props;
+    prevResult = createElement(Component, props);
+    return prevResult;
+  };
 }
