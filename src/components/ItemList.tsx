@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { memo } from "../@lib";
-import { useAppContext } from "../App";
+import { useThemeContext } from "../@lib/contexts";
 import { Item } from "../types";
 import { renderLog } from "../utils";
 
@@ -11,8 +11,7 @@ export const ItemList: React.FC<{
 }> = memo(({ items, onAddItemsClick }) => {
   renderLog("ItemList rendered");
   const [filter, setFilter] = useState("");
-  const { theme } = useAppContext();
-
+  const { theme } = useThemeContext();
   const filteredItems = items.filter(
     (item) =>
       item.name.toLowerCase().includes(filter.toLowerCase()) ||
