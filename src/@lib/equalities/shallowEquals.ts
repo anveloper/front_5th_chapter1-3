@@ -1,9 +1,15 @@
 export const shallowEquals = <T>(objA: T, objB: T): boolean => {
   // 타입이 다른 지 먼처 확인
   if (typeof objA !== typeof objB) return false;
-  // 배열이 아닌 객체 확인
+
+  // 배열인 경우
+  if (Array.isArray(objA) && Array.isArray(objB)) {
+    if (objA.length !== objB.length) return false;
+    return objA.every((a, idx) => a === objB[idx]);
+  }
+
+  // 객체일 경우
   if (isObject(objA) && isObject(objB)) {
-    // 객체인 지
     const keysA = Object.keys(objA);
     const keysB = Object.keys(objB);
     if (keysA.length !== keysB.length) return false;
@@ -13,12 +19,9 @@ export const shallowEquals = <T>(objA: T, objB: T): boolean => {
       }
     }
     return true;
-    // 배열 확인
-  } else if (Array.isArray(objA) && Array.isArray(objB)) {
-    if (objA.length !== objB.length) return false;
-    return objA.every((a, idx) => a === objB[idx]);
   }
-  // 나머지 === 확인
+
+  // 나머지 원시 타입
   return objA === objB;
 };
 
