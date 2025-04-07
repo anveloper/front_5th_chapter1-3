@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { memo, useCallback } from "./@lib";
 import { useThemeContext } from "./@lib/contexts";
 import Providers from "./@lib/providers";
 import {
@@ -18,16 +19,15 @@ const App: React.FC = () => {
   );
 };
 
-const AppContent = () => {
+const AppContent = memo(() => {
   const { theme } = useThemeContext();
-  const [items, setItems] = useState(generateItems(1000));
+  // lazy initalizer 문제 >> advanced 마지막 테스트 gnerateItemsSpy
+  // const [items, setItems] = useState(generateItems(1000)); // 실패
+  const [items, setItems] = useState(() => generateItems(1000));
 
-  const addItems = () => {
-    setItems((prevItems) => [
-      ...prevItems,
-      ...generateItems(1000, prevItems.length),
-    ]);
-  };
+  const addItems = useCallback(() => {
+    setItems((p) => [...p, ...generateItems(1000, p.length)]);
+  }, []);
 
   return (
     <div
@@ -47,6 +47,6 @@ const AppContent = () => {
       <NotificationSystem />
     </div>
   );
-};
+});
 
 export default App;
