@@ -1,19 +1,24 @@
-import { ComponentType, createElement } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+import { ComponentType, createElement, ReactElement } from "react";
 import { shallowEquals } from "../equalities";
+import { useMemo, useRef } from "../hooks";
 
 export function memo<P extends object>(
   Component: ComponentType<P>,
   _equals = shallowEquals,
 ) {
   // 직접만든 훅으로 구현
-  let prevProps: P | null = null;
-  let prevResult: ReturnType<typeof createElement>;
   return (props: P) => {
-    if (prevProps && _equals(prevProps, props)) {
-      return prevResult;
-    }
-    prevProps = props;
-    prevResult = createElement(Component, props);
-    return prevResult;
+    const prev = useRef<{ props: P; result: ReactElement } | null>(null);
+    const result = useMemo(() => {
+      if (prev.current && _equals(prev.current.props, props)) {
+        return prev.current.result;
+      }
+      const result = createElement(Component, props);
+      prev.current = { props, result };
+      return prev.current.result;
+    }, [props]);
+    return result;
   };
 }
