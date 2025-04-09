@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 import { ComponentType, createElement, ReactElement } from "react";
 import { shallowEquals } from "../equalities";
 import { useMemo, useRef } from "../hooks";
