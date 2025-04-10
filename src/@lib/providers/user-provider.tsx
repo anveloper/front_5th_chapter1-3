@@ -1,15 +1,7 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useState } from "react";
 import { User } from "../../types";
+import { useNotificationContext, UserContext } from "../contexts";
 import { useCallback, useMemo } from "../hooks";
-import { useNotificationContext } from "./NotificationContext";
-
-interface UserContextType {
-  user: User | null;
-  login: (email: string, password: string) => void;
-  logout: () => void;
-}
-
-const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -33,10 +25,4 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const value = useMemo(() => ({ user, login, logout }), [user, login, logout]);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
-};
-
-export const useUserContext = () => {
-  const ctx = useContext(UserContext);
-  if (!ctx) throw new Error("useUserContext must be used within UserProvider");
-  return ctx;
 };
