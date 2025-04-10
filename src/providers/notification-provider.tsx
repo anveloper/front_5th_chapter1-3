@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { Notification } from "../../types";
+import { useMemo } from "../@lib/hooks";
 import { NotificationContext } from "../contexts";
-import { useMemo } from "../hooks";
+import { Notification } from "../types";
 
 export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

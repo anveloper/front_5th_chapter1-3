@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { memo, useCallback } from "./@lib";
-import { useThemeContext } from "./@lib/contexts";
-import Providers from "./@lib/providers";
 import {
   ComplexForm,
   Header,
   ItemList,
   NotificationSystem,
 } from "./components";
+import { useThemeContext } from "./contexts";
+import { Providers } from "./providers";
 import { generateItems } from "./utils";
 
 // 메인 App 컴포넌트

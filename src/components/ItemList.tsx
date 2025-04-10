@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { memo, useMemo } from "../@lib";
-import { useThemeContext } from "../@lib/contexts";
+import { useThemeContext } from "../contexts";
 import { Item } from "../types";
 import { renderLog } from "../utils";
 

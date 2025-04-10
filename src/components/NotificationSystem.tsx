@@ -1,6 +1,6 @@
 import React from "react";
 import { memo } from "../@lib";
-import { useNotificationContext } from "../@lib/contexts";
+import { useNotificationContext } from "../contexts";
 import { renderLog } from "../utils";
 
 // NotificationSystem 컴포넌트

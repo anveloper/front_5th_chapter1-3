@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { memo, useCallback } from "../@lib";
-import { useNotificationContext } from "../@lib/contexts";
+import { useNotificationContext } from "../contexts";
 import { renderLog } from "../utils";
 
 // ComplexForm 컴포넌트
