@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import { DependencyList } from "react";
-import { useMemo } from "./useMemo";
+import { useMemo } from "./use-memo";
 
 export function useCallback<T extends Function>(
   factory: T,
